@@ -24,6 +24,7 @@ public class MainFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_input, container, false);
 		TextView tv = (TextView) rootView.findViewById(R.id.section_label);
 		Button bSave = (Button) rootView.findViewById(R.id.saveButton);
+		Button bCancel = (Button) rootView.findViewById(R.id.cancelButton);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories) ;
 		Spinner list = (Spinner) rootView.findViewById(R.id.categorySpinner); 
 		switch(getArguments().getInt(ARG_SECTION_NUMBER)){
@@ -33,7 +34,6 @@ public class MainFragment extends Fragment {
 				break;
 			case 3:
 				tv.setText("Expense");
-				
 				list.setAdapter(adapter);
 				break;
 		}
