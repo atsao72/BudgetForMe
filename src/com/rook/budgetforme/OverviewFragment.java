@@ -20,8 +20,8 @@ public class OverviewFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
-		TextView tv1 = (TextView) rootView.findViewById(R.id.text);
-		tv1.setText("Budget");
+		TextView tv = (TextView) rootView.findViewById(R.id.text);
+		tv.setText("Budget");
 
 		return rootView;
 	}

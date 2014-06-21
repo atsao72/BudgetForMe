@@ -76,16 +76,19 @@ public class MainActivity extends FragmentActivity {
 			switch(position){
 			case 0:
 				fragment = new OverviewFragment();
+				break;
 			case 1:
 				fragment = new MainFragment();
 				Bundle args = new Bundle();
 				args.putInt(MainFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
+				break;
 			case 2:
 				fragment = new MainFragment();
 				Bundle args1 = new Bundle();
 				args1.putInt(MainFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args1);
+				break;
 			}
 			
 			return fragment;
