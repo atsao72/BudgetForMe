@@ -14,17 +14,21 @@
         />
     <EditText
         android:id="@+id/valueInput"
-        android:layout_below="@+id/section_label"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter value"
-        />
-    <Spinner
-        android:id="@+id/categorySpinner"
-        android:layout_below="@+id/valueInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_below="@+id/section_label"
+        android:ems="10"
+        android:hint="Enter value"
+        android:inputType="numberDecimal" >
+        <requestFocus />
+    </EditText>
+    
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/valueInput" />
+
     <EditText
         android:id="@+id/descriptionInput"
         android:layout_below="@+id/categorySpinner"
@@ -47,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height= "wrap_content"
         />
-    
+
+
 
 </RelativeLayout>
