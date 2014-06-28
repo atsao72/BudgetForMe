@@ -1,5 +1,8 @@
 package com.rook.budgetforme;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Locale;
 
 import android.os.Bundle;
@@ -34,15 +37,22 @@ public class MainActivity extends FragmentActivity {
 	 */
 	ViewPager mViewPager;
 
+	public static File housing = new File("housing.txt");	
+	public static FileOutputStream fos;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		try {
+			fos = new FileOutputStream(housing, true);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(
-				getSupportFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);

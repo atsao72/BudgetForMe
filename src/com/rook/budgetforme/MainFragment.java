@@ -29,8 +29,8 @@ public class MainFragment extends Fragment implements OnClickListener {
 	TextView tv = null;
 	EditText value;
 	EditText description;
-	FileOutputStream fos;
-	public static File housing = new File("housing.txt");;
+	//FileOutputStream fos;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,35 +69,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 		return rootView;
 	}
 
-/*	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		// TODO Auto-generated method stub
-		int position = list.getSelectedItemPosition();
-		switch(position){
-		case 0:
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		}
-	}
-
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-
-	}
-*/
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
@@ -111,10 +82,9 @@ public class MainFragment extends Fragment implements OnClickListener {
 					break;
 				case 1:
 					try {
-						fos = new FileOutputStream(housing, true);
-						fos.write(description.getBytes());
-						fos.write(value.getBytes());
-						fos.close();
+						MainActivity.fos.write(description.getBytes());
+						MainActivity.fos.write(value.getBytes());
+						MainActivity.fos.close();
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

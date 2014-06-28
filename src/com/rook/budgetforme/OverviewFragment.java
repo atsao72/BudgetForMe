@@ -1,6 +1,7 @@
 package com.rook.budgetforme;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +22,7 @@ public class OverviewFragment extends Fragment {
 	 * The fragment argument representing the section number for this
 	 * fragment.
 	 */
+	
 
 	public OverviewFragment() {
 	}
@@ -35,7 +37,10 @@ public class OverviewFragment extends Fragment {
 		FileInputStream fis = null;
 		String collected = "";
 		try {
-			fis = new FileInputStream(MainFragment.housing);
+			FileOutputStream fos = new FileOutputStream(MainActivity.housing, true);
+			//fos.write();
+			fos.close();
+			fis = new FileInputStream(MainActivity.housing);
 			byte[] dataArray = new byte[fis.available()];
 			while(fis.read(dataArray)!= -1){
 				collected = new String(dataArray);
