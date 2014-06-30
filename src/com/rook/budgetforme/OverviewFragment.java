@@ -1,6 +1,7 @@
 package com.rook.budgetforme;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,51 +16,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-public class OverviewFragment extends Fragment {
-	/**
-	 * The fragment argument representing the section number for this
-	 * fragment.
-	 */
+public class OverviewFragment extends Fragment implements OnItemSelectedListener {
+	private String[] categories = {"Select a category", "Housing", "Food", "Transportation", "Entertainment", "Savings", "Other"};
+	Spinner spinner;
+	TextView tv;
+	String myData;
 	
-
-	public OverviewFragment() {
-	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
-		TextView tv = (TextView) rootView.findViewById(R.id.text);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories);
+		spinner = (Spinner) rootView.findViewById(R.id.spinner1);
+		spinner.setOnItemSelectedListener(this);
+		spinner.setAdapter(adapter);
+		tv = (TextView) rootView.findViewById(R.id.text);
 		//new LoadData().execute("housing.txt");
 
-		FileInputStream fis = null;
-		String collected = "";
-		try {
-			FileOutputStream fos = new FileOutputStream(MainActivity.housing, true);
-			//fos.write();
-			fos.close();
-			fis = new FileInputStream(MainActivity.housing);
-			byte[] dataArray = new byte[fis.available()];
-			while(fis.read(dataArray)!= -1){
-				collected = new String(dataArray);
-			}
-			tv.setText(collected);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally{
-			try {
-				fis.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
-		}
+
 		return rootView;
 	}
 /*	
@@ -73,4 +53,43 @@ public class LoadData extends AsyncTask<String, Integer, String> {
 	}
 	
 }*/
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// TODO Auto-generated method stub
+		myData = "";
+		switch(spinner.getSelectedItemPosition()){
+		case 0:
+			break;
+		case 1:
+			try {
+			    FileInputStream fis = new FileInputStream(MainActivity.housingFile);
+			    DataInputStream in = new DataInputStream(fis);
+			    BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			    String strLine;
+			    while ((strLine = br.readLine()) != null) {
+			    myData = myData + strLine + '\n';
+			    }
+			    in.close();
+			   } catch (IOException e) {
+			    e.printStackTrace();
+			   }
+			   tv.setText(myData);
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		}
+	}
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

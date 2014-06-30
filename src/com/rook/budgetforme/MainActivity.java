@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Locale;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -37,19 +39,26 @@ public class MainActivity extends FragmentActivity {
 	 */
 	ViewPager mViewPager;
 
-	public static File housing = new File("housing.txt");	
-	public static FileOutputStream fos;
-	
+	//public static File housing = new File("housing.txt");	
+	//public static FileOutputStream fos;
+	public static String housing = "housing.txt";
+	public static String filepath = "MyFileStorage";
+	public static File housingFile;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		try {
+		ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+		File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
+		housingFile = new File(directory , housing);
+		
+		/*try {
 			fos = new FileOutputStream(housing, true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

@@ -31,7 +31,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 	EditText description;
 	//FileOutputStream fos;
 
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_input, container, false);
@@ -81,7 +80,16 @@ public class MainFragment extends Fragment implements OnClickListener {
 				case 0:
 					break;
 				case 1:
-					try {
+					 try {
+						    FileOutputStream fos = new FileOutputStream(MainActivity.housingFile, true);
+						    fos.write((description + ": " + value + " ").getBytes());
+						    fos.close();
+						   } catch (IOException e) {
+						    e.printStackTrace();
+						   }
+						   this.value.setText("");
+						   this.description.setText("");
+						/*try {
 						MainActivity.fos.write(description.getBytes());
 						MainActivity.fos.write(value.getBytes());
 						MainActivity.fos.close();
@@ -91,7 +99,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}*/
 					break;
 				case 2:
 					break;
