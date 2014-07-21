@@ -3,10 +3,14 @@ package com.rook.budgetforme;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Locale;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -41,16 +45,45 @@ public class MainActivity extends FragmentActivity {
 
 	//public static File housing = new File("housing.txt");	
 	//public static FileOutputStream fos;
-	public static String housing = "housing.txt";
+	//public static String housing = "housing.txt";
 	public static String filepath = "MyFileStorage";
-	public static File housingFile;
+	public static File fIncome, fHousing, fFood, fTransportation, fEntertainment, fSavings, fOther, 
+		fIncomeTotal, fHousingTotal, fFoodTotal, fTransportationTotal, fEntertainmentTotal, fSavingsTotal, fOtherTotal;
+	private String[] docs = {"income.txt", "housing.txt", "food.txt", "transportation.txt", "entertainment.txt", "savings.txt", "other.txt"};
+	public static String[] names = {"incomeTotal", "housingTotal", "foodTotal", "transportationTotal", "entertainmentTotal",
+		"savingsTotal", "otherTotal"};
+	public static File[] files = {fIncome, fHousing, fFood, fTransportation, fEntertainment, fSavings, fOther};
+	//public static File[] totals = {fIncomeTotal, fHousingTotal, fFoodTotal, fTransportationTotal, fEntertainmentTotal, fSavingsTotal, fOtherTotal};
+	private static double tIncome, tHousing, tFood, tTransportation, tEntertainment, tSavings, tOther;
+	public static double[] totalValues = {tIncome, tHousing, tFood, tTransportation, tEntertainment, tSavings, tOther};
+	public static String filename = "MyIncome";
+	//public static float totalIncome;
+	public static SharedPreferences income;
+	
+	public static int[] COLORS = new int[] {Color.GREEN, Color.BLUE,Color.MAGENTA, Color.CYAN, Color.RED, Color.YELLOW, Color.BLACK};  
+	//public static double[] pieValues = new double[7];
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
 		File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
-		housingFile = new File(directory , housing);
+		for(int i=0; i<docs.length;i++){
+			files[i] = new File(directory, docs[i]);
+			//totals[i] = new File(directory, totalDocs[i]);
+		}
+		for(int i=0; i<docs.length;i++){
+			try {
+				FileOutputStream fos = new FileOutputStream(MainActivity.files[i], true);
+				fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		income = getSharedPreferences(filename, 0);
+		new LoadIncomes().execute();
+		//File fHousing = new File(directory , housing);
 		
 		/*try {
 			fos = new FileOutputStream(housing, true);
@@ -133,5 +166,18 @@ public class MainActivity extends FragmentActivity {
 			return null;
 			
 		}
+	}
+	public class LoadIncomes extends AsyncTask<String, Integer, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			income = getSharedPreferences(filename, 0);
+			for(int i=0; i<names.length;i++){
+				totalValues[i] = MainFragment.round(income.getFloat(names[i], 0),2);
+			}
+			return null;
+		}
+		
 	}
 }

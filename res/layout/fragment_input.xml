@@ -19,7 +19,8 @@
         android:layout_below="@+id/section_label"
         android:ems="10"
         android:hint="Enter value"
-        android:inputType="numberDecimal" >
+        android:inputType="numberDecimal"
+        android:imeOptions="actionDone" >
         <requestFocus />
     </EditText>
     
@@ -35,6 +36,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Enter description (i.e. salary, gift)"
+        android:inputType="textCapSentences"
+        android:imeOptions="actionDone"
         />
     <Button
         android:id="@+id/saveButton"
